@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html dir='auto'>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>Invoice 000001</title>
+	<style type="text/css">
+		body {
+			font: normal normal 10pt "Sans";
+		}
+
+		table {
+			/* table does not inherit font */
+			font: normal normal 10pt "Sans";
+		}
+
+		table[border="1"] th {
+			border-color: black;
+		}
+
+		table[border="1"] td {
+			border-color: black;
+		}
+
+		h1.coyname {
+			font: bold normal 18pt "Sans";
+		}
+
+		h1.coyname {
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body onload="window.print()">
+	<div class="main">
+
+		<!-- company info -->
+		<table class="coytable" border="0" width="100%">
+			<tr valign="top" style="vertical-align: top">
+
+				<td align="left">
+					<h1 class="coyname">Simpli-Fi Technologies</h1>
+				</td>
+				<td align="right">
+					<h2 class="invoice">Invoice
+
+					</h2>
+				</td>
+			</tr>
+		</table>
+		<table border="0" width="100%">
+			<tr valign="top">
+				<td align="left">
+
+					8630 Spruce Run Ct<br />Ellicott City, MD 21043<br />United States<br>
+
+
+					<strong></strong><br>
+
+				</td>
+				<td align="right">
+					<table border="0">
+
+						<tr>
+							<th colspan="2" align="right">Andrew Litman</th>
+						</tr>
+
+
+						<tr>
+							<td align="right">Phone:&nbsp;</td>
+							<td align="right">+1 (111) 111-1111</td>
+						</tr>
+
+
+						<tr>
+							<td align="right">Fax:&nbsp;</td>
+							<td align="right">1111111111</td>
+						</tr>
+
+
+						<tr>
+							<td align="right">Email:&nbsp;</td>
+							<td align="right">info@bizmail.com</td>
+						</tr>
+
+
+						<tr>
+							<td align="right">Website:&nbsp;</td>
+							<td align="right">bizsite.com</td>
+						</tr>
+
+					</table>
+			</tr>
+		</table>
+		<hr>
+
+		<table border="0" width="100%">
+			<tr valign="top">
+				<!-- customer info -->
+				<th align="right" width="1%">To:</th>
+				<td align="left">
+					Business Name<br>
+					4900 Waterloo Rd<br />Ellicott City, MD 21043<br />United States
+				</td>
+				<!-- invoice number etc. -->
+				<td align="right">
+					<table border="0">
+
+						<tr>
+							<td align="right" class="invnum"><big><strong><span
+											style="white-space:nowrap;">Invoice&nbsp;number:</span></strong></big></td>
+							<td align="right" class="invnum"><big><strong>{{ invoice_number }}</strong></big></td>
+						</tr>
+
+
+						<tr>
+							<td align="right"><span style="white-space:nowrap;">Invoice&nbsp;Date</span>:&nbsp;</td>
+							<td align="right"><span style="white-space:nowrap;">{{ opened_date }}</span></td>
+						</tr>
+						<tr>
+							<td align="right"><span style="white-space:nowrap;">Due&nbsp;Date</span>:&nbsp;</td>
+							<td align="right"><span style="white-space:nowrap;">{{ due_date }}</span></td>
+						</tr>
+
+
+
+
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		<!-- invoice lines table -->
+		<p>
+		<table border="1" width="100%" cellpadding="4" class="entries">
+			<thead>
+				<tr bgcolor="#ccc" valign="bottom">
+
+					<th align="center">Date</th>
+
+					<th align="left" width="80%">Description</th>
+
+
+
+					<th align="right">Qty</th>
+
+
+					<th align="right">Unit Price</th>
+
+
+
+					<th align="right">Total Price</th>
+				</tr>
+			</thead>
+
+			<tbody> <!-- display invoice entry lines, keeping running totals -->
+
+
+				{% for item in items %}
+				<tr valign="top">
+
+					<td align="center"><span style="white-space:nowrap;">{{ item.date }}</span></td>
+
+					<td align="left">{{ item.description }}</td>
+					<!-- td align="left">< ?scm:d (gncEntryGetNotes entry) ?></td -->
+
+
+
+
+
+					<td align="right">{{ item.qty }}</td>
+
+
+					<td align="right"><span style="white-space:nowrap;">${{ item.amount }}</span></td>
+
+
+
+					<!-- TO DO: need an option about whether to display the tax-inclusive total? -->
+					<td align="right"><span style="white-space:nowrap;">${{ item.qty*item.amount }}</span></td>
+				</tr>
+				{% endfor %}
+
+				<!-- total row -->
+				<tr valign="top">
+					<td align="left" class="total" colspan="4"><strong>
+							Amount Due,
+							USD</strong></td>
+					<td align="right" class="total"><strong><span style="white-space:nowrap;">${{ total_amount
+								}}</span></strong></td>
+				</tr>
+
+			</tbody>
+			<!-- end of (let) surrounding table body -->
+		</table>
+
+		<p>
+		<p>Thank you for your patronage!
+
+
+	</div>
+</body>
+
+</html>
